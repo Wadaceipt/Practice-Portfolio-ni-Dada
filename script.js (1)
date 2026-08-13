@@ -1,0 +1,138 @@
+/* =========================================
+   DADA PORTFOLIO JAVASCRIPT
+========================================= */
+
+
+/* GET ELEMENTS */
+
+const burger = document.getElementById("burger");
+const menu = document.getElementById("menu");
+const overlay = document.getElementById("overlay");
+
+const sections = document.querySelectorAll(".page-section");
+
+
+/* =========================================
+   BURGER MENU
+========================================= */
+
+function toggleMenu() {
+
+    const isOpen = menu.classList.toggle("active");
+
+    burger.classList.toggle("active");
+
+    overlay.classList.toggle("active");
+
+    burger.setAttribute("aria-expanded", isOpen);
+
+}
+
+
+/* Burger click */
+
+burger.addEventListener("click", toggleMenu);
+
+
+/* Overlay click */
+
+overlay.addEventListener("click", closeMenu);
+
+
+/* =========================================
+   CLOSE MENU
+========================================= */
+
+function closeMenu() {
+
+    menu.classList.remove("active");
+
+    burger.classList.remove("active");
+
+    overlay.classList.remove("active");
+
+    burger.setAttribute("aria-expanded", "false");
+
+}
+
+
+/* =========================================
+   SHOW SELECTED SECTION
+========================================= */
+
+function showSection(sectionId) {
+
+    /* Hide every section */
+
+    sections.forEach(function(section) {
+
+        section.classList.remove("active");
+
+    });
+
+
+    /* Find requested section */
+
+    const selectedSection =
+        document.getElementById(sectionId);
+
+
+    /* Show selected section */
+
+    if (selectedSection) {
+
+        selectedSection.classList.add("active");
+
+    }
+
+
+    /* Close burger */
+
+    closeMenu();
+
+
+    /* Move page to top */
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* =========================================
+   ESCAPE KEY
+========================================= */
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+
+        closeMenu();
+
+    }
+
+});
+
+
+/* =========================================
+   CURRENT YEAR
+========================================= */
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+
+/* =========================================
+   PREVENT BROKEN HASH NAVIGATION
+========================================= */
+
+window.addEventListener("load", function() {
+
+    showSection("home");
+
+});
